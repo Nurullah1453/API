@@ -47,6 +47,7 @@ public class C04_PutResponseBilgileriAssertion {
                 .body(reqBody.toString())
                 .put(url);
 
+        //4-Expected Data ile Actual Data'nin karsilastirilmasini yapalım (Assertion)
         response.then().assertThat()
                 .statusCode(200)
                 .contentType("application/json; charset=utf-8")
