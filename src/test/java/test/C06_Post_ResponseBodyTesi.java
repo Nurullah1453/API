@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.lessThan;
 
 public class C06_Post_ResponseBodyTesi {
     /*  https://jsonplaceholder.typicode.com/posts
@@ -31,30 +32,35 @@ public class C06_Post_ResponseBodyTesi {
     @Test
     public void post01(){
 
+        //1. Adim URL ve gerekiyorsa Body hazirlayalim
         String url="https://jsonplaceholder.typicode.com/posts";
 
         JSONObject reqBody=new JSONObject();
+        reqBody.put("title","API")
+                .put("body","API ogrenmek ne guzel")
+                .put("userId",10);
 
-        reqBody.put("title","API");
-        reqBody.put("body","API ogrenmek ne guzel");
-        reqBody.put("userId",10);
+        //2. Adim Expected Data hazirlayalim
+        //(Bu testimizde gerekmedigi icin bu adimi atliyoruz)
 
-        Response response=given()
+        //3.Response kaydedelim
+        Response response=given().contentType(ContentType.JSON)
+                .when().body(reqBody.toString()).post(url);
+
+        //4. Adim Assertion
+        response.then().assertThat()
+                .statusCode(201)
                 .contentType(ContentType.JSON)
+                .body("title",Matchers.equalTo("API"))
+                .body("userId", lessThan(100))
+                .body(Matchers.containsString("API"));
 
-                .when().body(reqBody.toString())
-                .post(url);
-
-        response.then().statusCode(201)
-                .contentType("application/json")
-                .body("title", Matchers.equalTo("API"))
-                .body("userId",Matchers.lessThan(100))
-                .body("body",Matchers.containsString("API"));
     }
 
     @Test
     public void post02(){
 
+        //1. Adim URL ve gerekiyorsa Body hazirlayalim
         String url="https://jsonplaceholder.typicode.com/posts";
 
         JSONObject reqBody=new JSONObject();
@@ -63,19 +69,24 @@ public class C06_Post_ResponseBodyTesi {
         reqBody.put("body","API ogrenmek ne guzel");
         reqBody.put("userId",10);
 
+        //2. Adim Expected Data hazirlayalim
+        //(Bu testimizde gerekmedigi icin bu adimi atliyoruz)
+
+        //3.Response kaydedelim
         Response response=given()
                 .contentType(ContentType.JSON)
 
                 .when().body(reqBody.toString())
                 .post(url);
 
+        //4. Adim Assertion
         response.
                 then().
                 assertThat().
                 statusCode(201).
                 contentType("application/json").
-                body("title", equalTo("API"),
-                        "userId",Matchers.lessThan(100),
+                body("title",equalTo("API"),
+                        "userId",lessThan(100),
                         "body",containsString("API"));
     }
 }

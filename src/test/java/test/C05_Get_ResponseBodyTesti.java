@@ -22,15 +22,21 @@ public class C05_Get_ResponseBodyTesti {
     @Test
     public void get01(){
 
+        //1. Adim URL ve gerekiyorsa body hazirlayalim
         String url="https://jsonplaceholder.typicode.com/posts/44";
 
+        //2. Adim Expected Data hazirlayalim
+        //(Bu testimizde gerek olmadıgı icin bu adimi atliyoruz)
+
+        //3. Adim Response kaydedelim
         Response response=given().when().get(url);
 
-        response.then().assertThat().statusCode(200)
+        //Assertion
+        response.then().assertThat()
+                .statusCode(200)
                 .contentType(ContentType.JSON)
-                .body("userId", Matchers.equalTo(5))
+                .body("userId",Matchers.equalTo(5))
                 .body("title",Matchers.equalTo("optio dolor molestias sit"));
-
     }
 }
 

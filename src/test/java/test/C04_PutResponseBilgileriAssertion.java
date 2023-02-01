@@ -25,29 +25,26 @@ public class C04_PutResponseBilgileriAssertion {
       */
 
     @Test
-    public void put01(){
+    public void put01() {
 
         //1-Gonderecegimiz Request icin gerekli olan URL ve ihtiyacımız varsa body'i hazırlayalim.
         String url="https://jsonplaceholder.typicode.com/posts/70";
 
         JSONObject reqBody=new JSONObject();
 
-        reqBody.put("title","Ahmet");
-        reqBody.put("body","Merhaba");
-        reqBody.put("userId",10);
-        reqBody.put("id",70);
+        reqBody.put("title","Ahmet")
+                .put("body","Merhaba")
+                .put("userId",10)
+                .put("id",70);
 
-        //2-Eger soruda bize verilmisse Expected Data hazırlayalim
+        //2-Expected Data hazirlanmali
+        //(Bu sorumuz icin gerek olmadıgı icin bu adamı atlıyoruz)
 
-        //3-Bize donen Response'i Actual Data olarak kaydedelim
+        //3-Response kaydedelim
 
-        Response response=given()
-                .contentType(ContentType.JSON)
-                .when()
-                .body(reqBody.toString())
-                .put(url);
+        Response response=given().contentType(ContentType.JSON).when().body(reqBody.toString()).put(url);
 
-        //4-Expected Data ile Actual Data'nin karsilastirilmasini yapalım (Assertion)
+        //4-Assertion
         response.then().assertThat()
                 .statusCode(200)
                 .contentType("application/json; charset=utf-8")
@@ -55,4 +52,6 @@ public class C04_PutResponseBilgileriAssertion {
                 .statusLine("HTTP/1.1 200 OK");
 
     }
+
 }
+

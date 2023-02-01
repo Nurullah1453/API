@@ -19,22 +19,20 @@ public class C02_GetResponseBilgileriAssertion {
     @Test
     public void get02(){
 
-        //1-Gonderecegimiz Request icin gerekli olan URL ve ihtiyacımız varsa body'i hazırlayalim.
+        //1.Adim URL ve lazim ise body hazirlayalim      (Get methodu oldugu icin body ihtiyacimiz yok)
         String url="https://restful-booker.herokuapp.com/booking/69";
 
-        //2-Eger soruda bize verilmisse Expected Data hazırlayalim
+        //2.Adim Expected Data hazirlayalim (Bu test icin bu adima ihtiyacimiz yok)
 
-        //3-Bize donen Response'i Actual Data olarak kaydedelim
+        //3.Adim Response kaydedelim
         Response response=given().when().get(url);
 
-        //4-Expected Data ile Actual Data'nin karsilastirilmasini yapalım (Assertion)
-
-        response.then()
-                .assertThat()
+        //4.Adim Assertion yapalim
+        response.then().assertThat()
                 .statusCode(200)
                 .contentType("application/json; charset=utf-8")
                 .header("Server","Cowboy")
                 .statusLine("HTTP/1.1 200 OK");
-
     }
+
 }

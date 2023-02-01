@@ -1,6 +1,7 @@
 package test;
 
 import io.restassured.response.Response;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -18,33 +19,26 @@ public class C01_GetMethoduAPISorgulama {
          */
 
     @Test
-    public void get01(){
+    public void get01() {
 
-        //1-Gonderecegimiz Request icin gerekli olan URL ve ihtiyacımız varsa body'i hazırlayalim.
+        //1.Adım Url ve ihtiyac varsa body hazirlayalim (Bu test icin get oldugu icin body ihtiyaci yok)
+        String url="https://restful-booker.herokuapp.com/booking/2231";
 
-        String url="https://restful-booker.herokuapp.com/booking/1840";
+        //2.Adım Expected Data hazirlayalim (Bu soru icin ihtiyacimiz yok)
 
-        //2-Eger soruda bize verilmisse Expected Data hazırlayalim
+        //3.Adım Response Actual Data olarak kaydedelim
+        Response response=given().when().get(url);
 
-        //3-Bize donen Response'i Actual Data olarak kaydedelim
+        System.out.println("Status Code: " + response.getStatusCode());
+        System.out.println("Content Type: " + response.getContentType());
+        System.out.println("Server: " + response.getHeader("Server"));
+        System.out.println("Status Line: " + response.getStatusLine());
+        System.out.println("Suresi: " + response.getTime());
 
-        Response response = given().when().get(url);
 
-        response.prettyPrint();
-
-        System.out.println("Status Code: "+ response.getStatusCode());
-
-        System.out.println("Content Type: "+ response.getContentType());
-
-        System.out.println("Header: "+ response.getHeader("Server"));
-
-        System.out.println("Status Line: "+ response.getStatusLine());
-
-        System.out.println("Suresi: "+ response.getTime());
-
-        //4-Expected Data ile Actual Data'nin karsilastirilmasini yapalım (Assertion)
-
+        //4.Adim karsilastirma (Assertion) yapalim (Bu test icin manuel denildigi icin bu adamı yapmayacagız)
 
     }
+
 
 }

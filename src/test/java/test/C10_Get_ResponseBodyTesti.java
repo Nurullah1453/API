@@ -24,19 +24,22 @@ public class C10_Get_ResponseBodyTesti {
     @Test
     public void get01(){
 
+        //1.Adim URL ve gerekiyorsa Body hazirlayalim
         String url="http://dummy.restapiexample.com/api/v1/employees";
 
+        //2.Adim Expected Data hazırlayalim
+        //(Bu tesimizde expected dataya ihtiyac olmadıgı icin bu adimi atliyoruz)
+
+        //3.Adim response kaydedelim
         Response response=given().when().get(url);
 
-        response.then()
-                .assertThat()
+        //4.Adim Assertion
+        response.then().assertThat()
                 .statusCode(200)
-                .contentType("application/json")
+                .contentType(ContentType.JSON)
                 .body("data.id",hasSize(24),
                         "data.employee_name",hasItem("Ashton Cox"),
                         "data.employee_age",hasItems(61,40,30));
-
-
 
     }
 }
