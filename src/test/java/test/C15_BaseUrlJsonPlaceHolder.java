@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
 public class C15_BaseUrlJsonPlaceHolder extends JsonPlaceHolderBaseUrl {
@@ -23,13 +24,16 @@ public class C15_BaseUrlJsonPlaceHolder extends JsonPlaceHolderBaseUrl {
         //1-Url hazirla
         specJsonPlace.pathParam("pp1","posts");
 
-        //2-Expected Data hazirla
+        //2-Expected Data Hazirlayalim.
 
-        //3-Responsa kaydet
+        //3-Response kaydedelim
         Response response=given().spec(specJsonPlace).when().get("/{pp1}");
 
         //4-Assertion
-        response.then().assertThat().statusCode(200).body("title",hasSize(100));
+        response.then().assertThat()
+                .statusCode(200)
+                .body("title",Matchers.hasSize(100));
+
     }
 
     @Test
@@ -39,16 +43,19 @@ public class C15_BaseUrlJsonPlaceHolder extends JsonPlaceHolderBaseUrl {
             request gonderdigimizde donen response’un status code’unun 200 oldugunu
             ve “title” degerinin “optio dolor molestias sit” oldugunu test edin
          */
-        //1-Url hazirla
+
+        //1.Adim Url hazirlayalim
         specJsonPlace.pathParams("pp1","posts","pp2",44);
 
-        //2-Expected Data hazirla
+        //2.Adim expected data hazirlayalim
 
-        //3-Responsa kaydet
+        //3.Adim
         Response response=given().spec(specJsonPlace).when().get("/{pp1}/{pp2}");
 
-        // //4-Assertion
-        response.then().assertThat().statusCode(200).body("title",Matchers.equalTo("optio dolor molestias sit"));
+        //4.Adim Assertion
+        response.then().assertThat()
+                .statusCode(200)
+                .body("title",equalTo("optio dolor molestias sit"));
     }
 
     @Test
@@ -58,5 +65,8 @@ public class C15_BaseUrlJsonPlaceHolder extends JsonPlaceHolderBaseUrl {
             request gonderdigimizde donen response’un status code’unun 200 oldugunu ve
             response body’sinin null oldugunu test edin
          */
+
+
+
     }
 }

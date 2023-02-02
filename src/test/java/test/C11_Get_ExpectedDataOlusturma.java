@@ -25,35 +25,31 @@ public class C11_Get_ExpectedDataOlusturma {
 
     @Test
     public void get01(){
-        //1-Url hazırla
+
+        //1.Adim URL ve gerekiyorsa body hazirlayalim
+
         String url="https://jsonplaceholder.typicode.com/posts/22";
 
-        //2-Expected Data hazırla
-
-        JSONObject expBody = new JSONObject();
-
-        expBody.put("userId",3);
-        expBody.put("id",22);
-        expBody.put("title","dolor sint quo a velit explicabo quia nam");
-        expBody.put("body","eos qui et ipsum ipsam suscipit aut\nsed omnis non odio\nexpedita ear" +
+        //2.Expected Data hazirlayalim
+        JSONObject expectedBody=new JSONObject();
+        expectedBody.put("userId",3);
+        expectedBody.put("id",22);
+        expectedBody.put("title","dolor sint quo a velit explicabo quia nam");
+        expectedBody.put("body","eos qui et ipsum ipsam suscipit aut\nsed omnis non odio\nexpedita ear"+
                 "um mollitia molestiae aut atque rem suscipit\nnam impedit esse");
 
-        System.out.println(expBody);
-
-        //3-Response kaydet
+        //3.Response kaydedelim
         Response response=given().when().get(url);
-        response.prettyPrint();
 
-        //Assertion
+        //4.Assertion
 
-        //NOT: Oncelikle gereken sey bizim response'i JSONPath objesine donusturmek
-
+        //Not:Oncelikle gereken response'i JSONpath objesine donusturmek.
         JsonPath resJsonPath=response.jsonPath();
 
-        Assert.assertEquals(expBody.get("userId"),resJsonPath.getInt("userId"));
-        Assert.assertEquals(expBody.get("id"),resJsonPath.getInt("id"));
-        Assert.assertEquals(expBody.get("title"),resJsonPath.getString("title"));
-        Assert.assertEquals(expBody.get("body"),resJsonPath.getString("body"));
+        Assert.assertEquals(expectedBody.get("userId"),resJsonPath.getInt("userId"));
+        Assert.assertEquals(expectedBody.get("id"),resJsonPath.getInt("id"));
+        Assert.assertEquals(expectedBody.get("title"),resJsonPath.getString("title"));
+        Assert.assertEquals(expectedBody.get("body"),resJsonPath.getString("body"));
 
     }
 }

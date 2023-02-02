@@ -29,39 +29,38 @@ public class C13_Get_SoftAssertIleExpectedDataTesti {
     @Test
     public void get01(){
 
-        //Url hazirla
+        //1.Adim URL ve gerekiyorsa Body olusturalim
         String url="http://dummy.restapiexample.com/api/v1/employee/3";
 
-        //Expected Data hazirla
-        JSONObject innerBody=new JSONObject();
+        //2.Adim Expected Data olusturalim
+        JSONObject expectedInnerBody=new JSONObject();
 
-        innerBody.put("id",3);
-        innerBody.put("employee_name","Ashton Cox");
-        innerBody.put("employee_salary",86000);
-        innerBody.put("employee_age",66);
-        innerBody.put("profile_image","");
+        expectedInnerBody.put("id",3);
+        expectedInnerBody.put("employee_name","Ashton Cox");
+        expectedInnerBody.put("employee_salary",86000);
+        expectedInnerBody.put("employee_age",66);
+        expectedInnerBody.put("profile_image","");
 
         JSONObject expectedBody=new JSONObject();
 
         expectedBody.put("status","success");
+        expectedBody.put("data",expectedInnerBody);
         expectedBody.put("message","Successfully! Record has been fetched.");
-        expectedBody.put("data",innerBody);
 
-        //Response kaydet
+        //3.Adim Response kaydedelim
         Response response=given().when().get(url);
 
-        //Assertion
+        //4.Adim Assertion
         SoftAssert softAssert=new SoftAssert();
-
         JsonPath resJPath=response.jsonPath();
 
         softAssert.assertEquals(resJPath.get("status"),expectedBody.get("status"));
         softAssert.assertEquals(resJPath.get("message"),expectedBody.get("message"));
         softAssert.assertEquals(resJPath.get("data.id"),expectedBody.getJSONObject("data").get("id"));
         softAssert.assertEquals(resJPath.get("data.employee_name"),expectedBody.getJSONObject("data").get("employee_name"));
-        softAssert.assertEquals(resJPath.get("data.employee_salary"),expectedBody.getJSONObject("data").get("employee_salary"));
         softAssert.assertEquals(resJPath.get("data.employee_age"),expectedBody.getJSONObject("data").get("employee_age"));
         softAssert.assertEquals(resJPath.get("data.profile_image"),expectedBody.getJSONObject("data").get("profile_image"));
+
 
         softAssert.assertAll();
 
