@@ -2,6 +2,9 @@ package testData;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TestDataJsonPlaceHolder {
 
     public int basariliStatusCode=200;
@@ -33,6 +36,22 @@ public class TestDataJsonPlaceHolder {
         reqBodyJson.put("body","Merhaba");
 
         return reqBodyJson;
+    }
+
+    /*
+
+     */
+
+    public HashMap requestBodyOlusturMap(){
+
+        HashMap<String,Object> reqBodyMap=new HashMap<>();
+
+        reqBodyMap.put("title","Ahmet");
+        reqBodyMap.put("body","Merhaba");
+        reqBodyMap.put("userId",10);
+        reqBodyMap.put("id",70);
+
+        return requestBodyOlusturMap();
     }
 
 }
